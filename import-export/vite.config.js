@@ -7,5 +7,5 @@ export default defineConfig({
   plugins: [react(),
      tailwindcss(),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/my-website/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/4export/' : '/',
 })
