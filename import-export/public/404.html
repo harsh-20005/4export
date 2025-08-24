@@ -15,6 +15,9 @@
         (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
         l.hash
       );
+        var base = '/import-export/';
+        var dest = base + 'index.html' + location.search + location.hash;
+        location.replace(dest);
     </script>
   </head>
   <body>
