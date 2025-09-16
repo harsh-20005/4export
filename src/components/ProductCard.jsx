@@ -1,30 +1,77 @@
+// src/pages/ProductPage.jsx
 import React from "react";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { categories } from "../assets/productData";
 
-export default function ProductCard({ image, name, description }) {
+export default function ProductPage() {
+  const { id } = useParams();
+  let product = null;
+
+  categories.forEach((cat) => {
+    const found = cat.products.find((p) => p.id === parseInt(id));
+    if (found) product = found;
+  });
+
+  if (!product) {
+    return (
+      <div className="text-center py-20 text-red-600 font-bold text-xl">
+        🚫 Product not found!
+      </div>
+    );
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
+      exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5 }}
-      className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+      className="py-20 bg-gradient-to-br from-green-50 via-white to-green-100"
     >
-      <div className="overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out"
-        />
-      </div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row gap-12 items-start">
+        {/* Product Image */}
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="flex-1 flex justify-center"
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full max-w-lg rounded-2xl shadow-lg hover:shadow-green-300 transition"
+          />
+        </motion.div>
 
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold mb-2 text-gray-800">{name}</h3>
-        <p className="text-gray-600 flex-grow">{description}</p>
-        <button className="mt-4 px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition duration-300 ease-in-out">
-          View Details
-        </button>
+        {/* Product Info */}
+        <div className="flex-1 flex flex-col space-y-6">
+          <h1 className="text-4xl font-extrabold text-green-700">
+            {product.name}
+          </h1>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            {product.description}
+          </p>
+
+          {/* Features List */}
+          <ul className="list-disc list-inside text-gray-700 space-y-2 bg-white/70 p-6 rounded-xl shadow">
+            {product.features.map((feat, idx) => (
+              <li
+                key={idx}
+                className="hover:text-green-600 transition-colors duration-200"
+              >
+                {feat}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="self-start mt-6 inline-block bg-green-600 text-white px-8 py-3 rounded-xl shadow-md hover:bg-green-700 hover:shadow-lg transition"
+          >
+            {product.ctaText || "Enquire Now"}
+          </motion.button>
+        </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

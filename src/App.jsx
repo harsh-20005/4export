@@ -6,9 +6,12 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ProductsPage from "./pages/ProductsPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
+import ProductPage from "./pages/productpage";
+import CategoryPage from "./pages/Catogarypage";
+// import ProductDetailPage from "./pages/ProductDetailPage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
+import InquiryPage from "./pages/inquiryPage";
 
 function App() {
   return (
@@ -18,9 +21,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:id" element={<ProductDetailPage />} />
+        <Route path="/products/:categoryId" element={<CategoryPage />} />        
+        <Route path="/products/:id" element={<ProductPage />} />        
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/inquiry" element={<InquiryPage />} />
       </Routes>
       <Footer />
     </Router>
